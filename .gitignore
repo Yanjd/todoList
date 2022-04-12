@@ -16,5 +16,5 @@
 user/conf/config.ini
 user/go.sum
 .idea
-gormDemo
+gormDemo/
 *.log

@@ -3,6 +3,8 @@ package conf
 import (
 	"fmt"
 	"gopkg.in/ini.v1"
+	"strings"
+	"user/model"
 )
 
 //Db = mysql
@@ -21,12 +23,14 @@ var (
 )
 
 func Init() {
-	file, err := ini.Load("./conf/config.ini")
+	file, err := ini.Load("F:\\golandProjects\\TodoList\\todoList\\user\\conf\\config.ini")
 	if err != nil {
 		fmt.Println("load ini config err: ", err)
 		return
 	}
 	LoadMysqlData(file)
+	path := strings.Join([]string{DbUser, ":", DbPassword, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8&parseTime=true"}, "")
+	model.Database(path)
 }
 
 func LoadMysqlData(f *ini.File) {

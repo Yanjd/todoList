@@ -11,7 +11,6 @@ var DB *gorm.DB
 
 func Database(configString string) {
 	db, err := gorm.Open(mysql.Open(configString), &gorm.Config{
-		Logger: nil,
 		NamingStrategy: schema.NamingStrategy{
 			SingularTable: true,
 		},
@@ -27,5 +26,5 @@ func Database(configString string) {
 	dbSql.SetMaxIdleConns(20)
 	dbSql.SetConnMaxLifetime(30 * time.Second)
 	DB = db
-	//migration()
+	migration()
 }

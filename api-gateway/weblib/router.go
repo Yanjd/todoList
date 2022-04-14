@@ -22,6 +22,16 @@ func NewRouter(service ...interface{}) *gin.Engine {
 
 		v1.POST("/user/register", handlers.UserRegister)
 		v1.POST("/user/login", handlers.UserLogin)
+
+		auth := v1.Group("/")
+		auth.Use(middleware.Jwt())
+		{
+			auth.GET("tasks", handlers.GetTaskList)
+			auth.POST("task", handlers.CreateTask)
+			auth.GET("task/:id", handlers.GetTask)
+			auth.PUT("task/:id", handlers.UpdateTask)
+			auth.DELETE("task/:id", handlers.DeleteTask)
+		}
 	}
 
 	return r

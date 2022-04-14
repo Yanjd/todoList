@@ -11,3 +11,10 @@ func PanicUserError(err error) {
 		panic(err)
 	}
 }
+
+func PanicTaskError(err error) {
+	if err != nil {
+		logging.Info(errors.New("taskService--" + err.Error()))
+		panic(err)
+	}
+}

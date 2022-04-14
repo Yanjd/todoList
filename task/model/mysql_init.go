@@ -25,4 +25,5 @@ func Database(connString string) {
 	dbSql.SetMaxIdleConns(20)
 	dbSql.SetConnMaxLifetime(30 * time.Second)
 	DB = db
+	migration()
 }

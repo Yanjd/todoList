@@ -61,13 +61,13 @@ func (*TaskService) UpdateTask(ctx context.Context, req *service.TaskRequest, re
 	taskData.Title = req.Title
 	taskData.Status = int(req.Status)
 	taskData.Content = req.Content
-	model.DB.Save(&taskData)
+	model.DB.Debug().Save(&taskData)
 	resp.TaskDetail = BuildTask(taskData)
 	return nil
 }
 
 func (*TaskService) DeleteTask(ctx context.Context, req *service.TaskRequest, resp *service.TaskDetailResponse) error {
-	err := model.DB.Model(&model.Task{}).Where("id = ?", req.Id).Where("uid = ?", req.Uid).Delete(&model.Task{}).Error
+	err := model.DB.Model(&model.Task{}).Where("id = ?", req.Id).Where("uid = ?", req.Uid).Debug().Delete(&model.Task{}).Error
 	if err != nil {
 		return fmt.Errorf("delete err: %s", err.Error())
 	}
